@@ -19,6 +19,10 @@ eval "$(pyenv virtualenv-init -)"
 # sdkman raises an error "file exists..."
 set +o noclobber
 
+# when spark-shell activated, 'local' parameter does not work for zsh.
+# in order to detour the issue...2018-02-12
+setopt nonomatch
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/soichi/.sdkman"
 [[ -s "/Users/soichi/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/soichi/.sdkman/bin/sdkman-init.sh"
