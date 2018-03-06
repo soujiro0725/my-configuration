@@ -1,4 +1,4 @@
-sudo apt-get install -y curl vim ssh wget
+sudo apt-get install -y curl vim ssh wget tmux
 
 # to install python with pyenv
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
