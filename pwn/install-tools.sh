@@ -7,3 +7,6 @@ git clone https://github.com/radare/radare2.git
 cd radare2
 ./sys/user.sh
 
+# install socat
+sudo apt-get install socat
+
