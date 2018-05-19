@@ -1,5 +1,8 @@
 # install docker on linux
 
+# for kali
+# https://medium.com/@airman604/installing-docker-in-kali-linux-2017-1-fbaa4d1447fe
+
 sudo apt-get update
 sudo apt-get install \
     apt-transport-https \
@@ -26,4 +29,3 @@ sudo chmod +x /usr/local/bin/docker-compose
 # after installation
 sudo groupadd docker
 sudo usermod -aG docker $USER
-
