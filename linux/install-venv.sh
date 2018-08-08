@@ -1,6 +1,6 @@
 sudo apt-get install gdb-multiarch
 sudo apt-get install g++-arm-linux-gnueabihf
-sudo apt-get install qemu-user-binfmt
+sudo apt-get install qemu-user-binfmt qemu-system-arm
 
 # reference
 # https://qiita.com/eggman/items/948095368ae81834fb4a
