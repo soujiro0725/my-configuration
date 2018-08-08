@@ -6,3 +6,5 @@ sudo apt-get install qemu-user-binfmt
 # https://qiita.com/eggman/items/948095368ae81834fb4a
 sudo apt build-dep qemu
 sudo apt install gcc-arm-linux-gnueabihf
+
+sudo apt-get install bison flex
