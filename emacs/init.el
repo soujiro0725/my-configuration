@@ -1,8 +1,49 @@
-;;reference https://qiita.com/hiroakit/items/2199ade2e93d162b118b
+;;--------------------------------------------------
+;;------------straight.el -----------------------
+;;--------------------------------------------------
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+
+;;--------------------------------------------------
+;;-------custom settings--------------------
+;;--------------------------------------------------
+
+;; use-package
+(straight-use-package 'use-package)
+
+;; use-packageをstraight.elにフォールバックする
+(setq straight-use-package-by-default t)
+
+;; init-loader
+(use-package init-loader)
+;;; ログはエラーが出た時のみ
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(init-loader-show-log-after-init (quote error-only)))
+
+;;--------------------------------------------------
+;;-----basic settings-------------------------
+;;--------------------------------------------------
+
 (setq coding-key 'utf-8)
 (set-default-coding-systems coding-key)
-;;maintain japanese font for ansi-term
-;;http://d.hatena.ne.jp/inouetakuya/20110624/1308878780
 (setq locale-coding-system coding-key)
 (set-language-environment 'Japanese)
 (prefer-coding-system coding-key)
@@ -12,10 +53,10 @@
 (setq default-buffer-file-coding-system coding-key)
 (setq-default indent-tabs-mode nil)
 (setq-default truncate-lines t)
-;;(global-linum-mode 1)
 ;; optionキーとcommandキーを，両方meta キーにする
 (setq ns-command-modifier (quote meta))
 (scroll-bar-mode -1)
+
 (global-auto-revert-mode 1)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -45,6 +86,8 @@
 ;;shows the line number and total at mode-line
 (setcar mode-line-position
         '(:eval (format "%d" (count-lines (point-max) (point-min)))))
+;; font
+
 (when (>= emacs-major-version 23)
   (set-face-attribute 'default nil
                       :family "Source Code Pro"
@@ -52,8 +95,7 @@
   (set-fontset-font
    (frame-parameter nil 'font)
    'japanese-jisx0208
-;;   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
-   '("Noto Sans Mono CJK JP" . "iso10646-1"))
+   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
   (set-fontset-font
    (frame-parameter nil 'font)
    'katakana-jisx0201
@@ -75,128 +117,58 @@
           (".*Hiragino Maru Gothic Pro.*" . 1.3))))
 
 
-;; TODO add migemo
-
-(defconst hp-inits-dir (concat user-emacs-directory "inits"))
-(defvar hp-melpa-url "http://melpa.milkbox.net/packages/")
-(defvar hp-marmalade-url "http://marmalade-repo.org/packages/")
-(defvar hp-use-package-list
-  '(
-    ;; 以下に使用するパッケージを記述する
-    init-loader
-    yasnippet
-    auto-complete
-    foreign-regexp
-    web-mode
-    js2-mode
-    csharp-mode
-    cmake-mode
-    helm
-    ruby-mode
-    ruby-additional
-    ruby-block
-    org-tree-slide
-    ;;uniquify
-    auto-save-buffers-enhanced
-    key-chord
-    open-junk-file
-    undo-tree
-    sequential-command
-    smartparens
-    )
-)
-
-;;; パッケージ
-(require 'package)
-(add-to-list 'package-archives (cons "melpa" hp-melpa-url))
-(add-to-list 'package-archives (cons "marmalade" hp-marmalade-url))
-(package-initialize)
-
-;;; 未インストールのパッケージを探す
-(require 'cl)
-(let ((not-installed 
-       (loop for x in hp-use-package-list
-             when (not (package-installed-p x)) collect x)))
-  (when not-installed
-    (package-refresh-contents)
-    (dolist 
-        (pkg not-installed)
-        (package-install pkg))))
-
-;;; 各パッケージの設定ファイルはinits以下に置く．init-loaderがそれを読み込む
-;;; ファイル命名規則が存在する (例 : 10-hoge.el)
-(when (require 'init-loader nil t)
-  (setq init-loader-show-log-after-init 'error-only)
-  (when (file-directory-p (symbol-value 'hp-inits-dir))
-    (init-loader-load hp-inits-dir)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/Emacs/org-files/development-projects.org" "~/Dropbox/Emacs/org-files/reading-todos.org")))
- '(package-selected-packages
-   (quote
-    (smartparens org-tree-slide ruby-block ruby-additional helm cmake-mode csharp-mode js2-mode web-mode foreign-regexp auto-complete yasnippet init-loader))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;;--------------------------------------------------
-;; helm
+;;-----custom packages settings-------
+;;--------------------------------------------------
+
+
+;;-----helm--------------------------------------
+
+(use-package popwin)
 (require 'popwin)
 (popwin-mode 1)
+
+(setq helm-samewindow nil)
+;; helm bufferをpopupする
+(setq helm-display-function #'display-buffer)
+(when (require 'popwin)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq popwin:special-display-config
+    '(("*complitation*" :noselect t)
+      ("helm" :regexp t :height 0.4))))
+
+(use-package helm)
+(require 'helm)
 (require 'helm-config)
 (helm-mode 1)
 
-;; (defun my-helm ()
-;;   (interactive)
-;;   (helm :sources '(
-;;                    helm-c-source-buffers-list
-;;                    helm-c-source-recentf
-;;                    helm-c-source-files-in-current-dir
-;;                    helm-c-source-mac-spotlight
-;;                    helm-c-source-buffer-not-found)
-;;         :buffer "*my helm*"))
-
-;; (global-set-key (kbd "C-x b") 'my-helm)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (define-key global-map (kbd "C-x C-f") 'helm-find-files)
 (define-key global-map (kbd "C-x C-r") 'helm-recentf)
 (define-key global-map (kbd "M-y")     'helm-show-kill-ring)
 
-(setq helm-samewindow nil)
-(push '("*helm-M-x*") popwin:special-display-config)
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
 ;; emacsの終了時に、履歴を保存する
 (remove-hook 'kill-emacs-hook 'helm-c-adaptive-save-history)
-;; ディレイは0.2秒
-(setq helm-input-idle-delay 0.02)
-;; 候補のディレクトリが一つしかない場合に、自動的に展開しない
-(setq helm-ff-auto-update-initial-value nil)
+;;--------------------------------------------------
 
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-
-
-
+;;----auto-save-buffer-----------------------
+(use-package auto-save-buffers-enhanced)
 (require 'auto-save-buffers-enhanced)
-(setq auto-save-buffers-enhanced-interval 0.5) ; 指定のアイドル秒で保存
+(setq auto-save-buffers-enhanced-interval 0.5)
 (auto-save-buffers-enhanced t)
-;; 2017-12-02 20:36:19 Saturday
-;; sshでアクセスしているときは問題が起きるため
-(setq auto-save-buffers-enhanced-exclude-regexps '("^/ssh:" "/sudo:" "/multi:"))
+;;--------------------------------------------------
 
+;;----smartparens----------------------------
+(use-package smartparens)
+(require 'smartparens-config)
+(smartparens-global-mode t)
+;;--------------------------------------------------
 
-;;; org-mode
-;;;
-;; temporarily commented out
-;; (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+;;----org------------------------------------------
 (define-key global-map "\C-cl" 'org-store-link) ;;hyperlink
 (define-key global-map "\C-ca" 'org-agenda)
 ;; (define-key global-map "\C-cr" 'org-remember)
@@ -216,19 +188,53 @@
 	(sequence "REDO(r)" "|" "DONE(d)" "CANCEL(c)")))
 (setq org-log-done 'time)
 (setq org-tag-alist '(("LEARNING" . ?l) ("REFERENCE" . ?r) ("QUESTION" . ?q) ("UPTOHERE" . ?u)))
-;;----------MobileOrg-------------------------------
-(setq org-directory "~/Dropbox/Emacs/org-files")
-;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/Dropbox/Emacs/org-files/notes.org")
-;; Set to <your Dropbox root directory>/MobileOrg.
-(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-(add-hook 'after-init-hook 'org-mobile-pull)
-(add-hook 'kill-emacs-hook 'org-mobile-push)
+;;--------------------------------------------------
+
+;;----migemo-----------------------------------
+(use-package migemo)
+(setq migemo-command "/usr/local/bin/cmigemo")
+(setq migemo-options '("-q" "--emacs" "-i" "\g"))
+(setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+(setq migemo-user-dictionary nil)
+(setq migemo-regex-dictionary nil)
+(setq migemo-coding-system 'utf-8)
+(load-library "migemo")
+(migemo-init)
+;;--------------------------------------------------
+
+
+;;----junk-file-----------------------------------
+(use-package open-junk-file)
+(require 'open-junk-file)
+(setq open-junk-file-format "~/.emacs.d/junk/%Y/%m/%Y-%m-%d-%H%M%S.")
+;;--------------------------------------------------
 
 
 ;;--------------------------------------------------
+(load-theme 'manoj-dark t)
+;;--------------------------------------------------
+
+;;---smart-mode-line------------------------
+(use-package smart-mode-line)
+(require 'smart-mode-line)
+(sml/setup)
+;;(sml/apply-theme 'powerline)
+(put 'upcase-region 'disabled nil)
+;;--------------------------------------------------
+
+;;----sequential command----------------
+;; (straight-use-package
+;;  '(sequential-command
+;;    :type git
+;;    :host github
+;;    :repo "soujiro0725/sequential-command"))
+(use-package sequential-command)
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
 ;;--------------------------------------------------
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
