@@ -263,11 +263,11 @@
 ;;--------------------------------------------------
 
 ;;----sequential command----------------
-;; (straight-use-package
-;;  '(sequential-command
-;;    :type git
-;;    :host github
-;;    :repo "soujiro0725/sequential-command"))
+(straight-use-package
+ '(sequential-command
+   :type git
+   :host github
+   :repo "soujiro0725/sequential-command"))
 (use-package sequential-command) ;; no repository for this, so require it!
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
