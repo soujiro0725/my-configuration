@@ -1,6 +1,7 @@
 ;;--------------------------------------------------
 ;;------------straight.el -----------------------
 ;;--------------------------------------------------
+;;; code:
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -35,7 +36,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(init-loader-show-log-after-init (quote error-only)))
 
 ;;--------------------------------------------------
@@ -123,9 +124,7 @@
 
 
 ;;-----helm--------------------------------------
-
 (use-package popwin)
-(require 'popwin)
 (popwin-mode 1)
 
 (setq helm-samewindow nil)
@@ -138,8 +137,6 @@
       ("helm" :regexp t :height 0.4))))
 
 (use-package helm)
-(require 'helm)
-(require 'helm-config)
 (helm-mode 1)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -153,18 +150,63 @@
 
 ;; emacsの終了時に、履歴を保存する
 (remove-hook 'kill-emacs-hook 'helm-c-adaptive-save-history)
+
+(use-package helm-swoop)
+
+(global-set-key (kbd "M-s") 'helm-swoop)
+(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
 ;;--------------------------------------------------
+
+
+;;----recentf-ext-------------------------------
+(use-package recentf-ext)
+(recentf-mode 1)
+(setq recentf-max-saved-items 200)
+(setq recentf-save-file "~/.emacs.d/recentf")
+(setq recentf-auto-cleanup 'never)
+(setq helm-for-files-preferred-list
+      '(helm-source-buffers-list
+        helm-source-recentf
+        helm-source-bookmarks
+        helm-source-file-cache
+        helm-source-files-in-current-dir
+        helm-source-bookmark-set
+        helm-source-locate))
+;;--------------------------------------------------
+
+
+;;----company---------------------------------
+(use-package company)
+(global-company-mode)
+(setq company-transformers '(company-sort-by-backend-importance))
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+(setq company-selection-wrap-around t)
+(setq completion-ignore-case t)
+(setq company-dabbrev-downcase nil)
+(global-set-key (kbd "C-M-i") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+(define-key company-active-map (kbd "C-i") 'company-complete-selection)
+(define-key company-active-map [tab] 'company-complete-selection)
+(define-key company-active-map (kbd "C-f") 'company-complete-selection)
+(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
+;;--------------------------------------------------
+
 
 ;;----auto-save-buffer-----------------------
 (use-package auto-save-buffers-enhanced)
-(require 'auto-save-buffers-enhanced)
 (setq auto-save-buffers-enhanced-interval 0.5)
 (auto-save-buffers-enhanced t)
 ;;--------------------------------------------------
 
 ;;----smartparens----------------------------
 (use-package smartparens)
-(require 'smartparens-config)
 (smartparens-global-mode t)
 ;;--------------------------------------------------
 
@@ -205,7 +247,6 @@
 
 ;;----junk-file-----------------------------------
 (use-package open-junk-file)
-(require 'open-junk-file)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y/%m/%Y-%m-%d-%H%M%S.")
 ;;--------------------------------------------------
 
@@ -216,9 +257,8 @@
 
 ;;---smart-mode-line------------------------
 (use-package smart-mode-line)
-(require 'smart-mode-line)
 (sml/setup)
-;;(sml/apply-theme 'powerline)
+(sml/apply-theme 'dark)
 (put 'upcase-region 'disabled nil)
 ;;--------------------------------------------------
 
@@ -228,7 +268,7 @@
 ;;    :type git
 ;;    :host github
 ;;    :repo "soujiro0725/sequential-command"))
-(use-package sequential-command)
+(use-package sequential-command) ;; no repository for this, so require it!
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
 ;;--------------------------------------------------
@@ -238,3 +278,72 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;;--------------------------------------------------
+;;----for programming ----------------------
+;;--------------------------------------------------
+
+
+;;----web-mode--------------------------------
+(use-package web-mode)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(defun web-mode-hook ()
+  (setq web-mode-html-offset   2)
+  (setq web-mode-css-offset    2)
+  (setq web-mode-script-offset 2)
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2))
+(add-hook 'web-mode-hook 'web-mode-hook)
+;;--------------------------------------------------
+
+
+;;----js2-mode---------------------------------
+(use-package js2-mode)
+(straight-use-package 'company-tern)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;;別途ternをインストールする必要がある
+;; npm install -g tern
+;;(add-hook 'js2-mode-hook 'tern-mode)
+;;(add-to-list 'company-backends 'company-tern)
+;;--------------------------------------------------
+
+
+;;----fly-check---------------------------------
+;;(use-package flycheck)
+;;(add-hook 'after-init-hook #'global-flycheck-mode)
+;;--------------------------------------------------
+
+
+;;----dockerfile--------------------------------
+(use-package dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+;;--------------------------------------------------
+
+;;----yaml--------------------------------
+(use-package yaml-mode)
+;;--------------------------------------------------
+
+;;----lsp -----------------------------------------
+;;(setq lsp-clients-python-executable "~/.pyenv/shims/python")
+
+(add-to-list 'exec-path "~/.pyenv/shims")
+
+
+(use-package lsp-mode
+  :commands lsp)
+(use-package company-lsp)
+(use-package lsp-ui
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+(use-package python-mode
+  :config
+  (require 'lsp-clients)
+  (add-hook 'python-mode-hook #'lsp))
+
+;; pip install python-language-server
+;; pip install pyls-black
+
+;;--------------------------------------------------
