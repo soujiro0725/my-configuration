@@ -326,10 +326,7 @@
 ;;--------------------------------------------------
 
 ;;----lsp -----------------------------------------
-;;(setq lsp-clients-python-executable "~/.pyenv/shims/python")
-
 (add-to-list 'exec-path "~/.pyenv/shims")
-
 
 (use-package lsp-mode
   :commands lsp)
@@ -343,6 +340,7 @@
   (require 'lsp-clients)
   (add-hook 'python-mode-hook #'lsp))
 
+;;;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
 
@@ -357,6 +355,11 @@
 (use-package switch-window)
 (setq switch-window-shortcut-style 'qwerty)
 (global-set-key (kbd "C-x o") 'switch-window)
+;;--------------------------------------------------
+
+;;---undo-tree--------------------------------------
+(use-package undo-tree)
+(global-undo-tree-mode)
 ;;--------------------------------------------------
 
 ;;---for gsx only-----------------------------------
