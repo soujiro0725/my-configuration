@@ -362,6 +362,12 @@
 (global-undo-tree-mode)
 ;;--------------------------------------------------
 
+;;---visual regexp----------------------------------
+(use-package visual-regexp)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;;--------------------------------------------------
+
 ;;---for gsx only-----------------------------------
 (let ((local-settings "~/.emacs.d/gsx_init.el"))
  (when (file-exists-p local-settings)
