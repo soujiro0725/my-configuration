@@ -368,6 +368,11 @@
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
 ;;--------------------------------------------------
 
+
+;;---transpose-frame--------------------------------
+(use-package transpose-frame)
+;;--------------------------------------------------
+
 ;;---for gsx only-----------------------------------
 (let ((local-settings "~/.emacs.d/gsx_init.el"))
  (when (file-exists-p local-settings)
