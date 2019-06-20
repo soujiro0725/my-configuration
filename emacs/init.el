@@ -39,10 +39,10 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(init-loader-show-log-after-init (quote error-only)))
 
+
 ;;--------------------------------------------------
 ;;-----basic settings-------------------------
 ;;--------------------------------------------------
-
 (setq coding-key 'utf-8)
 (set-default-coding-systems coding-key)
 (setq locale-coding-system coding-key)
@@ -232,6 +232,7 @@
 (setq org-tag-alist '(("LEARNING" . ?l) ("REFERENCE" . ?r) ("QUESTION" . ?q) ("UPTOHERE" . ?u)))
 ;;--------------------------------------------------
 
+
 ;;----migemo-----------------------------------
 (use-package migemo)
 (setq migemo-command "/usr/local/bin/cmigemo")
@@ -251,9 +252,10 @@
 ;;--------------------------------------------------
 
 
-;;--------------------------------------------------
+;;---theme------------------------------------------
 (load-theme 'manoj-dark t)
 ;;--------------------------------------------------
+
 
 ;;---smart-mode-line------------------------
 (use-package smart-mode-line)
@@ -310,20 +312,16 @@
 ;;--------------------------------------------------
 
 
-;;----fly-check---------------------------------
-;;(use-package flycheck)
-;;(add-hook 'after-init-hook #'global-flycheck-mode)
-;;--------------------------------------------------
-
-
 ;;----dockerfile--------------------------------
 (use-package dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;;--------------------------------------------------
 
+
 ;;----yaml--------------------------------
 (use-package yaml-mode)
 ;;--------------------------------------------------
+
 
 ;;----lsp -----------------------------------------
 (add-to-list 'exec-path "~/.pyenv/shims")
@@ -343,7 +341,6 @@
 ;;;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
-
 ;;--------------------------------------------------
 
 
@@ -351,16 +348,19 @@
 (use-package ein)
 ;;--------------------------------------------------
 
+
 ;;---switch-window----------------------------------
 (use-package switch-window)
 (setq switch-window-shortcut-style 'qwerty)
 (global-set-key (kbd "C-x o") 'switch-window)
 ;;--------------------------------------------------
 
+
 ;;---undo-tree--------------------------------------
 (use-package undo-tree)
 (global-undo-tree-mode)
 ;;--------------------------------------------------
+
 
 ;;---visual regexp----------------------------------
 (use-package visual-regexp)
@@ -372,6 +372,7 @@
 ;;---transpose-frame--------------------------------
 (use-package transpose-frame)
 ;;--------------------------------------------------
+
 
 ;;---for gsx only-----------------------------------
 (let ((local-settings "~/.emacs.d/gsx_init.el"))
