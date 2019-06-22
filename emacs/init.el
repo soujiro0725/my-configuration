@@ -132,14 +132,16 @@
 (use-package popwin)
 (popwin-mode 1)
 
-(setq helm-samewindow nil)
+;; 2019-06-23
+;; 以下の設定は、find-filesを実行したときに、違うwindowにファイルを開いたり、意味不明な挙動を起こす。
+;; helmのバッファをつねにポップアップする設定自体は良いが、上記の問題を解決しないとストレスがたまる。
 ;; helm bufferをpopupする
-(setq helm-display-function #'display-buffer)
-(when (require 'popwin)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (setq popwin:special-display-config
-    '(("*complitation*" :noselect t)
-      ("helm" :regexp t :height 0.4))))
+;; (setq helm-display-function #'display-buffer)
+;; (when (require 'popwin)
+;;   (setq display-buffer-function 'popwin:display-buffer)
+;;   (setq popwin:special-display-config
+;;     '(("*complitation*" :noselect t)
+;;       ("helm" :regexp t :height 0.4))))
 
 (use-package helm)
 (helm-mode 1)
