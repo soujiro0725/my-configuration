@@ -328,6 +328,14 @@
 ;;--------------------------------------------------
 
 
+;;----yasnippet--------------------------------
+(use-package yasnippet)
+(setq yas-snippet-dirs
+      '("~/Dropbox/Emacs/snippets"))
+(yas-global-mode 1)
+;;--------------------------------------------------
+
+
 ;;----lsp -----------------------------------------
 (add-to-list 'exec-path "~/.pyenv/shims")
 
