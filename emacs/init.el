@@ -212,10 +212,12 @@
 (auto-save-buffers-enhanced t)
 ;;--------------------------------------------------
 
+
 ;;----smartparens----------------------------
 (use-package smartparens)
 (smartparens-global-mode t)
 ;;--------------------------------------------------
+
 
 ;;----org------------------------------------------
 (define-key global-map "\C-cl" 'org-store-link) ;;hyperlink
@@ -271,6 +273,7 @@
 (put 'upcase-region 'disabled nil)
 ;;--------------------------------------------------
 
+
 ;;----sequential command----------------
 (straight-use-package
  '(sequential-command
@@ -290,11 +293,11 @@
 
 
 ;;--------------------------------------------------
-;;----for programming ----------------------
+;;----for programming ------------------------------
 ;;--------------------------------------------------
 
 
-;;----web-mode--------------------------------
+;;----web-mode--------------------------------------
 (use-package web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (defun web-mode-hook ()
@@ -307,7 +310,7 @@
 ;;--------------------------------------------------
 
 
-;;----js2-mode---------------------------------
+;;----js2-mode--------------------------------------
 (use-package js2-mode)
 (straight-use-package 'company-tern)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -319,18 +322,18 @@
 ;;--------------------------------------------------
 
 
-;;----dockerfile--------------------------------
+;;----dockerfile------------------------------------
 (use-package dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;;--------------------------------------------------
 
 
-;;----yaml--------------------------------
+;;----yaml------------------------------------------
 (use-package yaml-mode)
 ;;--------------------------------------------------
 
 
-;;----yasnippet--------------------------------
+;;----yasnippet-------------------------------------
 (use-package yasnippet)
 (setq yas-snippet-dirs
       '("~/Dropbox/Emacs/snippets"))
@@ -338,7 +341,7 @@
 ;;--------------------------------------------------
 
 
-;;----lsp -----------------------------------------
+;;----lsp ------------------------------------------
 (add-to-list 'exec-path "~/.pyenv/shims")
 
 (use-package lsp-mode
