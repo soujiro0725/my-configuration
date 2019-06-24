@@ -1,5 +1,5 @@
 ;;--------------------------------------------------
-;;------------straight.el -----------------------
+;;------------straight.el --------------------------
 ;;--------------------------------------------------
 ;;; code:
 (defvar bootstrap-version)
@@ -17,7 +17,7 @@
 
 
 ;;--------------------------------------------------
-;;-------custom settings--------------------
+;;-------custom settings----------------------------
 ;;--------------------------------------------------
 
 ;; use-package
@@ -41,7 +41,7 @@
 
 
 ;;--------------------------------------------------
-;;-----basic settings-------------------------
+;;-----basic settings-------------------------------
 ;;--------------------------------------------------
 (setq coding-key 'utf-8)
 (set-default-coding-systems coding-key)
@@ -359,6 +359,22 @@
 ;;;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
+;;--------------------------------------------------
+
+
+;; ;;---fly-check--------------------------------------
+;; (use-package flycheck
+;;   :ensure t
+;;   :init
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
+;; ;;--------------------------------------------------
+
+
+;;---projectile-------------------------------------
+(use-package projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 ;;--------------------------------------------------
 
 
