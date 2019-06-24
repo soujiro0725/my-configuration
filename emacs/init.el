@@ -128,6 +128,12 @@
 ;;--------------------------------------------------
 
 
+;;---projectile-------------------------------------
+(use-package projectile)
+(projectile-mode +1)
+;;--------------------------------------------------
+
+
 ;;-----helm--------------------------------------
 (use-package popwin)
 (popwin-mode 1)
@@ -166,7 +172,10 @@
 (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
 
 (use-package helm-projectile)
-;;TODO set key bind
+(global-set-key (kbd "C-c p") 'helm-projectile)
+;; original key bind
+;;(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;;(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 ;;--------------------------------------------------
 
 
@@ -349,7 +358,11 @@
 (use-package company-lsp)
 (use-package lsp-ui
   :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+  :custom
+  (lsp-ui-imenu-enable nil)
+  (lsp-ui-imenu-kind-position 'top))
 
 (use-package python-mode
   :config
@@ -359,22 +372,13 @@
 ;;;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
+
 ;;--------------------------------------------------
 
 
-;; ;;---fly-check--------------------------------------
-;; (use-package flycheck
-;;   :ensure t
-;;   :init
-;;   (add-hook 'after-init-hook #'global-flycheck-mode))
-;; ;;--------------------------------------------------
-
-
-;;---projectile-------------------------------------
-(use-package projectile)
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;---fly-check--------------------------------------
+(use-package flycheck)
+(global-flycheck-mode)
 ;;--------------------------------------------------
 
 
