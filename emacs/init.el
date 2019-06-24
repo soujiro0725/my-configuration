@@ -73,7 +73,7 @@
 	       )
 	      default-frame-alist))
 (global-font-lock-mode t)
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (show-paren-mode 1)
@@ -420,3 +420,8 @@
 ;;--------------------------------------------------
 
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
+(provide 'init)
+;;; init.el ends here
