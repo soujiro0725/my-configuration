@@ -362,6 +362,22 @@
 ;;--------------------------------------------------
 
 
+;; ;;---fly-check--------------------------------------
+;; (use-package flycheck
+;;   :ensure t
+;;   :init
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
+;; ;;--------------------------------------------------
+
+
+;;---projectile-------------------------------------
+(use-package projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;--------------------------------------------------
+
+
 ;;-----ein -----------------------------------------
 (use-package ein)
 ;;--------------------------------------------------
