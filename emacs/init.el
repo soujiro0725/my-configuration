@@ -64,7 +64,7 @@
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
-(set-frame-parameter (selected-frame) 'alpha '(95 95))
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
 (setq default-frame-alist
       (append (list
 	       '(width . 100)
@@ -272,16 +272,11 @@
 ;;--------------------------------------------------
 
 
-;;---theme------------------------------------------
-(load-theme 'misterioso t)
-;;--------------------------------------------------
-
-
 ;;---smart-mode-line------------------------
-(use-package smart-mode-line)
-(sml/setup)
-(sml/apply-theme 'dark)
-(put 'upcase-region 'disabled nil)
+;; (use-package smart-mode-line)
+;; (sml/setup)
+;; (sml/apply-theme 'dark)
+;; (put 'upcase-region 'disabled nil)
 ;;--------------------------------------------------
 
 
@@ -414,11 +409,59 @@
 ;;--------------------------------------------------
 
 
+;;--------------------------------------------------
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :custom-face
+  (doom-modeline-bar ((t (:background "#6272a4"))))
+  :config
+  (load-theme 'doom-dracula t)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
+
+
+(use-package doom-modeline
+      :custom
+      (doom-modeline-buffer-file-name-style 'truncate-with-project)
+      (doom-modeline-icon t)
+      (doom-modeline-major-mode-icon nil)
+      (doom-modeline-minor-modes nil)
+      :hook
+      (after-init . doom-modeline-mode)
+      :config
+      (line-number-mode 0)
+      (column-number-mode 0)
+      (doom-modeline-def-modeline 'main
+    '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
+    '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker)))
+;;--------------------------------------------------
+
+
+;;---dashboard--------------------------------------
+(use-package dashboard
+    :diminish
+    (dashboard-mode page-break-lines-mode)
+    :custom
+    ;;(dashboard-startup-banner 4)
+    (dashboard-items '((recents . 15)
+               (projects . 5)
+               (bookmarks . 5)
+               (agenda . 5)))
+    :hook
+    (after-init . dashboard-setup-startup-hook)
+    :config
+    (add-to-list 'dashboard-items '(agenda) t))
+;;--------------------------------------------------
+
+
 ;;---for gsx only-----------------------------------
 (let ((local-settings "~/.emacs.d/gsx_init.el"))
  (when (file-exists-p local-settings)
    (load-file local-settings)))
 ;;--------------------------------------------------
+
 
 
 ;; Local Variables:
