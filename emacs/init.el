@@ -280,6 +280,90 @@
 ;;--------------------------------------------------
 
 
+;;--------------------------------------------------
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :custom-face
+  (doom-modeline-bar ((t (:background "#6272a4"))))
+  :config
+  (load-theme 'doom-dracula t)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
+
+
+(use-package doom-modeline
+      :custom
+      (doom-modeline-buffer-file-name-style 'truncate-with-project)
+      (doom-modeline-icon t)
+      (doom-modeline-major-mode-icon nil)
+      (doom-modeline-minor-modes nil)
+      :hook
+      (after-init . doom-modeline-mode)
+      :config
+      (line-number-mode 0)
+      (column-number-mode 0)
+      (doom-modeline-def-modeline 'main
+    '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
+    '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker)))
+;;--------------------------------------------------
+
+
+;;---dashboard--------------------------------------
+(use-package dashboard
+    :diminish
+    (dashboard-mode page-break-lines-mode)
+    :custom
+    (dashboard-startup-banner 2)
+    (dashboard-items '((recents . 15)
+               (projects . 5)
+               (bookmarks . 5)
+               (agenda . 5)))
+    :hook
+    (after-init . dashboard-setup-startup-hook)
+    :config
+    (add-to-list 'dashboard-items '(agenda) t))
+;;--------------------------------------------------
+
+
+;;----indent----------------------------------------
+(use-package highlight-indent-guides
+    :diminish
+    :hook
+    ((prog-mode yaml-mode) . highlight-indent-guides-mode)
+    :custom
+    (highlight-indent-guides-auto-enabled t)
+    (highlight-indent-guides-responsive t)
+    (highlight-indent-guides-method 'character)) ; column
+;;--------------------------------------------------
+
+
+;;---switch-window----------------------------------
+(use-package switch-window)
+(setq switch-window-shortcut-style 'qwerty)
+(global-set-key (kbd "C-x o") 'switch-window)
+;;--------------------------------------------------
+
+
+;;---undo-tree--------------------------------------
+(use-package undo-tree)
+(global-undo-tree-mode)
+;;--------------------------------------------------
+
+
+;;---visual regexp----------------------------------
+(use-package visual-regexp)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;;--------------------------------------------------
+
+
+;;---transpose-frame--------------------------------
+(use-package transpose-frame)
+;;--------------------------------------------------
+
+
 ;;----sequential command----------------
 (straight-use-package
  '(sequential-command
@@ -359,7 +443,30 @@
 
   :custom
   (lsp-ui-imenu-enable nil)
-  (lsp-ui-imenu-kind-position 'top))
+  (lsp-ui-imenu-kind-position 'top)
+
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top) ;; top, bottom, or at-point
+  (lsp-ui-doc-max-width 150)
+  (lsp-ui-doc-max-height 30)
+  (lsp-ui-doc-use-childframe t)
+  (lsp-ui-doc-use-webkit t)
+
+
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-symbol t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-show-diagnostics nil)
+  (lsp-ui-sideline-show-code-actions nil)
+
+  (lsp-ui-peek-enable t)
+  (lsp-ui-peek-peek-height 20)
+  (lsp-ui-peek-list-width 50)
+  (lsp-ui-peek-fontify 'on-demand) ;; never, on-demand, or always
+  )
 
 (use-package python-mode
   :config
@@ -383,77 +490,6 @@
 (use-package ein)
 ;;--------------------------------------------------
 
-
-;;---switch-window----------------------------------
-(use-package switch-window)
-(setq switch-window-shortcut-style 'qwerty)
-(global-set-key (kbd "C-x o") 'switch-window)
-;;--------------------------------------------------
-
-
-;;---undo-tree--------------------------------------
-(use-package undo-tree)
-(global-undo-tree-mode)
-;;--------------------------------------------------
-
-
-;;---visual regexp----------------------------------
-(use-package visual-regexp)
-(define-key global-map (kbd "C-c r") 'vr/replace)
-(define-key global-map (kbd "C-c q") 'vr/query-replace)
-;;--------------------------------------------------
-
-
-;;---transpose-frame--------------------------------
-(use-package transpose-frame)
-;;--------------------------------------------------
-
-
-;;--------------------------------------------------
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-italic t)
-  (doom-themes-enable-bold t)
-  :custom-face
-  (doom-modeline-bar ((t (:background "#6272a4"))))
-  :config
-  (load-theme 'doom-dracula t)
-  (doom-themes-neotree-config)
-  (doom-themes-org-config))
-
-
-(use-package doom-modeline
-      :custom
-      (doom-modeline-buffer-file-name-style 'truncate-with-project)
-      (doom-modeline-icon t)
-      (doom-modeline-major-mode-icon nil)
-      (doom-modeline-minor-modes nil)
-      :hook
-      (after-init . doom-modeline-mode)
-      :config
-      (line-number-mode 0)
-      (column-number-mode 0)
-      (doom-modeline-def-modeline 'main
-    '(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
-    '(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker)))
-;;--------------------------------------------------
-
-
-;;---dashboard--------------------------------------
-(use-package dashboard
-    :diminish
-    (dashboard-mode page-break-lines-mode)
-    :custom
-    ;;(dashboard-startup-banner 4)
-    (dashboard-items '((recents . 15)
-               (projects . 5)
-               (bookmarks . 5)
-               (agenda . 5)))
-    :hook
-    (after-init . dashboard-setup-startup-hook)
-    :config
-    (add-to-list 'dashboard-items '(agenda) t))
-;;--------------------------------------------------
 
 
 ;;---for gsx only-----------------------------------
