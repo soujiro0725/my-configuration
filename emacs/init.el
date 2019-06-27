@@ -250,6 +250,28 @@
 	(sequence "REDO(r)" "|" "DONE(d)" "CANCEL(c)")))
 (setq org-log-done 'time)
 (setq org-tag-alist '(("LEARNING" . ?l) ("REFERENCE" . ?r) ("QUESTION" . ?q) ("UPTOHERE" . ?u)))
+
+(use-package org-pomodoro
+  :custom
+  (org-pomodoro-ask-upon-killing t)
+  (org-pomodoro-format "%s")
+  (org-pomodoro-short-break-format "%s")
+  (org-pomodoro-long-break-format  "%s")
+  ;; :custom-face
+  ;; (org-pomodoro-mode-line ((t (:foreground "#ff5555"))))
+  ;; (org-pomodoro-mode-line-break   ((t (:foreground "#50fa7b"))))
+  :hook
+  (org-pomodoro-started . (lambda () (notifications-notify
+                                      :title "org-pomodoro"
+                           :body "Let's focus for 25 minutes!"
+                           ;;:app-icon "~/.emacs.d/img/001-food-and-restaurant.png"
+                           )))
+   (org-pomodoro-finished . (lambda () (notifications-notify
+                                               :title "org-pomodoro"
+                           :body "Well done! Take a break."
+                           ;;:app-icon "~/.emacs.d/img/004-beer.png"
+                           )))
+  )
 ;;--------------------------------------------------
 
 
