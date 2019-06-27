@@ -466,6 +466,31 @@
 ;;--------------------------------------------------
 
 
+;;--------------------------------------------------
+;; (use-package minimap
+;;     :commands
+;;     (minimap-bufname minimap-create minimap-kill)
+;;     :custom
+;;     (minimap-major-modes '(prog-mode))
+
+;;     (minimap-window-location 'right)
+;;     (minimap-update-delay 0.2)
+;;     (minimap-minimum-width 20)
+;;     ;;:bind
+;;     ;;("M-c m" . soujiro0725/toggle-minimap)
+;;     :preface
+;;     (defun soujiro0725/toggle-minimap ()
+;;       "Toggle minimap for current buffer."
+;;       (interactive)
+;;       (if (null minimap-bufname)
+;;           (minimap-create)
+;;         (minimap-kill)))
+;;     :config
+;;     (custom-set-faces
+;;      '(minimap-active-region-background
+;;       ((((background dark)) (:background "#555555555555"))
+;;        (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+;;--------------------------------------------------
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
