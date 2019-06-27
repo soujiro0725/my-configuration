@@ -84,6 +84,7 @@
 (setq blink-cursor-delay 10.0)
 (blink-cursor-mode 1)
 (set-cursor-color "#FFFF00")
+(global-display-line-numbers-mode)
 ;;shows the line number and total at mode-line
 (setcar mode-line-position
         '(:eval (format "%d" (count-lines (point-max) (point-min)))))
@@ -420,7 +421,6 @@
   (lsp-ui-doc-max-height 30)
   (lsp-ui-doc-use-childframe t)
   (lsp-ui-doc-use-webkit t)
-
 
   (lsp-ui-sideline-enable nil)
   (lsp-ui-sideline-ignore-duplicate t)
