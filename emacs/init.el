@@ -58,7 +58,6 @@
 ;; optionキーとcommandキーを，両方meta キーにする
 (setq ns-command-modifier (quote meta))
 (scroll-bar-mode -1)
-
 (global-auto-revert-mode 1)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -88,35 +87,14 @@
 ;;shows the line number and total at mode-line
 (setcar mode-line-position
         '(:eval (format "%d" (count-lines (point-max) (point-min)))))
-;; font
 
-(when (>= emacs-major-version 23)
-  (set-face-attribute 'default nil
-                      :family "Source Code Pro"
-                      :height 130)
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   'japanese-jisx0208
-   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   'katakana-jisx0201
-   '("Hiragino Maru Gothic Pro" . "iso10646-1"))
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   'mule-unicode-0100-24ff
-   '("monaco" . "iso10646-1"))
-  
-  (setq face-font-rescale-alist
-        '(
-          ;; ("^-apple-hiragino.*" . 1.2)
-          ;; (".*osaka-bold.*" . 1.2)
-          ;; (".*osaka-medium.*" . 1.2)
-          ;; (".*courier-bold-.*-mac-roman" . 1.0)
-          ;; (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
-          ;; (".*monaco-bold-.*-mac-roman" . 0.9)
-          ;; ("-cdac$" . 1.3)
-          (".*Hiragino Maru Gothic Pro.*" . 0.9))))
+;; font
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 120)
+(setq face-font-rescale-alist
+      '(
+        (".*Hiragino Maru Gothic Pro.*" . 0.9)))
 
 
 ;;----frame-cmds------------------------------------
@@ -127,7 +105,6 @@
 ;;--------------------------------------------------
 ;;-----custom packages settings-------
 ;;--------------------------------------------------
-
 
 ;;---projectile-------------------------------------
 (use-package projectile)
@@ -233,7 +210,6 @@
 ;;----org------------------------------------------
 (define-key global-map "\C-cl" 'org-store-link) ;;hyperlink
 (define-key global-map "\C-ca" 'org-agenda)
-;; (define-key global-map "\C-cr" 'org-remember)
 
 (setq org-return-follows-link t)
 (setq org-agenda-files
@@ -250,28 +226,6 @@
 	(sequence "REDO(r)" "|" "DONE(d)" "CANCEL(c)")))
 (setq org-log-done 'time)
 (setq org-tag-alist '(("LEARNING" . ?l) ("REFERENCE" . ?r) ("QUESTION" . ?q) ("UPTOHERE" . ?u)))
-
-(use-package org-pomodoro
-  :custom
-  (org-pomodoro-ask-upon-killing t)
-  (org-pomodoro-format "%s")
-  (org-pomodoro-short-break-format "%s")
-  (org-pomodoro-long-break-format  "%s")
-  ;; :custom-face
-  ;; (org-pomodoro-mode-line ((t (:foreground "#ff5555"))))
-  ;; (org-pomodoro-mode-line-break   ((t (:foreground "#50fa7b"))))
-  :hook
-  (org-pomodoro-started . (lambda () (notifications-notify
-                                      :title "org-pomodoro"
-                           :body "Let's focus for 25 minutes!"
-                           ;;:app-icon "~/.emacs.d/img/001-food-and-restaurant.png"
-                           )))
-   (org-pomodoro-finished . (lambda () (notifications-notify
-                                               :title "org-pomodoro"
-                           :body "Well done! Take a break."
-                           ;;:app-icon "~/.emacs.d/img/004-beer.png"
-                           )))
-  )
 ;;--------------------------------------------------
 
 
@@ -291,14 +245,6 @@
 ;;----junk-file-----------------------------------
 (use-package open-junk-file)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y/%m/%Y-%m-%d-%H%M%S.")
-;;--------------------------------------------------
-
-
-;;---smart-mode-line------------------------
-;; (use-package smart-mode-line)
-;; (sml/setup)
-;; (sml/apply-theme 'dark)
-;; (put 'upcase-region 'disabled nil)
 ;;--------------------------------------------------
 
 
@@ -426,7 +372,6 @@
 (use-package js2-mode)
 (straight-use-package 'company-tern)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
 ;;別途ternをインストールする必要がある
 ;; npm install -g tern
 ;;(add-hook 'js2-mode-hook 'tern-mode)
