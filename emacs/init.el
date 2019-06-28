@@ -216,6 +216,7 @@
 ;;----org------------------------------------------
 (define-key global-map "\C-cl" 'org-store-link) ;;hyperlink
 (define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cc" 'org-capture)
 
 (setq org-return-follows-link t)
 (setq org-agenda-files
@@ -476,7 +477,6 @@
 ;;--------------------------------------------------
 
 
-
 ;;---for gsx only-----------------------------------
 (let ((local-settings "~/.emacs.d/gsx_init.el"))
  (when (file-exists-p local-settings)
@@ -485,30 +485,29 @@
 
 
 ;;---minimap----------------------------------------
-;; (use-package minimap
-;;   :commands
-;;   (minimap-create minimap-kill)
-;;   :custom
-;;   (minimap-major-modes '(prog-mode))
+(use-package minimap
+  :commands
+  (minimap-create minimap-kill)
+  :custom
+  (minimap-major-modes '(prog-mode))
 
-;;   (minimap-window-location 'right)
-;;   (minimap-update-delay 0.2)
-;;   (minimap-minimum-width 20)
-;;   :bind
-;;   ("C-c m" . soujiro0725/toggle-minimap)
-;;   :preface
-;;   (defun soujiro0725/toggle-minimap ()
-;;     "Toggle minimap for current buffer."
-;;     (interactive)
-;;     (when (get-buffer minimap-buffer-name)
-;;     ;;(if (null (get-buffer minimap-buffer-name)))
-;;         (minimap-kill)
-;;       (minimap-create)))
-;;   :config
-;;   (custom-set-faces
-;;    '(minimap-active-region-background
-;;      ((((background dark)) (:background "#555555555555"))
-;;       (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+  (minimap-window-location 'right)
+  (minimap-update-delay 0.2)
+  (minimap-minimum-width 20)
+  ;; :bind
+  ;; ("C-c m" . soujiro0725/toggle-minimap)
+  ;; :preface
+  ;; (defun soujiro0725/toggle-minimap ()
+  ;;   "Toggle minimap for current buffer."
+  ;;   (interactive)
+  ;;   (if (null (get-buffer minimap-buffer-name))
+  ;;       (minimap-create)
+  ;;     (minimap-kill)))
+  :config
+  (custom-set-faces
+   '(minimap-active-region-background
+     ((((background dark)) (:background "#555555555555"))
+      (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 ;;--------------------------------------------------
 
 ;; Local Variables:
