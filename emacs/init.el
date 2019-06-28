@@ -176,8 +176,11 @@
 
 
 ;;----company---------------------------------
-(use-package company)
-(global-company-mode)
+(use-package company
+  :config
+  (global-company-mode)
+  (push 'company-lsp company-backends)
+  )
 (setq company-transformers '(company-sort-by-backend-importance))
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
@@ -203,10 +206,12 @@
 (auto-save-buffers-enhanced t)
 ;;--------------------------------------------------
 
+
 ;;----smartparens----------------------------
 (use-package smartparens)
 (smartparens-global-mode t)
 ;;--------------------------------------------------
+
 
 ;;----org------------------------------------------
 (define-key global-map "\C-cl" 'org-store-link) ;;hyperlink
@@ -246,6 +251,13 @@
 ;;----junk-file-----------------------------------
 (use-package open-junk-file)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y/%m/%Y-%m-%d-%H%M%S.")
+;;--------------------------------------------------
+
+
+;;---which-key--------------------------------------
+(use-package which-key
+  :diminish which-key-mode
+  :hook (after-init . which-key-mode))
 ;;--------------------------------------------------
 
 
@@ -404,11 +416,9 @@
 
 (use-package lsp-mode
   :commands lsp)
-(use-package company-lsp)
 (use-package lsp-ui
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
   :custom
   (lsp-ui-imenu-enable nil)
   (lsp-ui-imenu-kind-position 'top)
@@ -433,7 +443,15 @@
   (lsp-ui-peek-peek-height 20)
   (lsp-ui-peek-list-width 50)
   (lsp-ui-peek-fontify 'on-demand) ;; never, on-demand, or always
-  )
+
+  :bind
+  (:map lsp-mode-map
+        ("M-?" . lsp-ui-peek-find-references)
+        ("M-/" . lsp-ui-peek-find-definitions)
+        ("C-c i"   . lsp-ui-peek-find-implementation)
+        ("C-c m"   . lsp-ui-imenu)
+        ("C-c s"   . lsp-ui-sideline-mode)
+        ))
 
 (use-package python-mode
   :config
@@ -466,30 +484,31 @@
 ;;--------------------------------------------------
 
 
-;;--------------------------------------------------
+;;---minimap----------------------------------------
 ;; (use-package minimap
-;;     :commands
-;;     (minimap-bufname minimap-create minimap-kill)
-;;     :custom
-;;     (minimap-major-modes '(prog-mode))
+;;   :commands
+;;   (minimap-create minimap-kill)
+;;   :custom
+;;   (minimap-major-modes '(prog-mode))
 
-;;     (minimap-window-location 'right)
-;;     (minimap-update-delay 0.2)
-;;     (minimap-minimum-width 20)
-;;     ;;:bind
-;;     ;;("M-c m" . soujiro0725/toggle-minimap)
-;;     :preface
-;;     (defun soujiro0725/toggle-minimap ()
-;;       "Toggle minimap for current buffer."
-;;       (interactive)
-;;       (if (null minimap-bufname)
-;;           (minimap-create)
-;;         (minimap-kill)))
-;;     :config
-;;     (custom-set-faces
-;;      '(minimap-active-region-background
-;;       ((((background dark)) (:background "#555555555555"))
-;;        (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+;;   (minimap-window-location 'right)
+;;   (minimap-update-delay 0.2)
+;;   (minimap-minimum-width 20)
+;;   :bind
+;;   ("C-c m" . soujiro0725/toggle-minimap)
+;;   :preface
+;;   (defun soujiro0725/toggle-minimap ()
+;;     "Toggle minimap for current buffer."
+;;     (interactive)
+;;     (when (get-buffer minimap-buffer-name)
+;;     ;;(if (null (get-buffer minimap-buffer-name)))
+;;         (minimap-kill)
+;;       (minimap-create)))
+;;   :config
+;;   (custom-set-faces
+;;    '(minimap-active-region-background
+;;      ((((background dark)) (:background "#555555555555"))
+;;       (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 ;;--------------------------------------------------
 
 ;; Local Variables:
