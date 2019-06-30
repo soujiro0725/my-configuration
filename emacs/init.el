@@ -416,8 +416,12 @@
 (add-to-list 'exec-path "~/.pyenv/shims")
 
 (use-package lsp-mode
-  :commands lsp)
+  :commands lsp
+  :ensure t
+  )
 (use-package lsp-ui
+  :commands lsp-ui-mode
+  :ensure t
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :custom
@@ -454,15 +458,24 @@
         ("C-c s"   . lsp-ui-sideline-mode)
         ))
 
-(use-package python-mode
-  :config
-  (require 'lsp-clients)
-  (add-hook 'python-mode-hook #'lsp))
+;; (use-package python-mode
+;;   :config
+;;   (require 'lsp-clients)
+;;   (add-hook 'python-mode-hook #'lsp))
 
 ;;;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
 
+;; for c/c++
+;; (use-package ccls
+;;   :ensure t
+;;   :config
+;;   (setq ccls-executable "ccls")
+;;   (setq lsp-prefer-flymake nil)
+;;   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+;;   :hook ((c-mode c++-mode) .
+;;          (lambda () (require 'ccls) (lsp))))
 ;;--------------------------------------------------
 
 
