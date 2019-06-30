@@ -416,17 +416,15 @@
 (add-to-list 'exec-path "~/.pyenv/shims")
 
 (use-package lsp-mode
-  :commands lsp
-  :ensure t
-  )
+  :commands lsp)
 (use-package lsp-ui
   :commands lsp-ui-mode
-  :ensure t
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode)
   :custom
   (lsp-ui-imenu-enable nil)
   (lsp-ui-imenu-kind-position 'top)
+
 
   (lsp-ui-doc-enable t)
   (lsp-ui-doc-header t)
@@ -455,27 +453,23 @@
         ("M-/" . lsp-ui-peek-find-definitions)
         ("C-c i"   . lsp-ui-peek-find-implementation)
         ("C-c m"   . lsp-ui-imenu)
-        ("C-c s"   . lsp-ui-sideline-mode)
-        ))
+        ("C-c s"   . lsp-ui-sideline-mode))
+  )
 
-;; (use-package python-mode
-;;   :config
-;;   (require 'lsp-clients)
-;;   (add-hook 'python-mode-hook #'lsp))
+(use-package python-mode
+  :config
+  (require 'lsp-clients)
+  (add-hook 'python-mode-hook #'lsp))
 
-;;;; for use lsp, run the following lines
+;; for use lsp, run the following lines
 ;; pip install python-language-server
 ;; pip install pyls-black
 
 ;; for c/c++
-;; (use-package ccls
-;;   :ensure t
-;;   :config
-;;   (setq ccls-executable "ccls")
-;;   (setq lsp-prefer-flymake nil)
-;;   (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
-;;   :hook ((c-mode c++-mode) .
-;;          (lambda () (require 'ccls) (lsp))))
+(use-package ccls
+  :custom (ccls-executable "/usr/local/bin/ccls")
+  :hook ((c-mode c++-mode) .
+         (lambda () (require 'ccls) (lsp))))
 ;;--------------------------------------------------
 
 
