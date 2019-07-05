@@ -458,10 +458,10 @@
         ("C-c s"   . lsp-ui-sideline-mode)
         ))
 
-;; (use-package python-mode
-;;   :config
-;;   (require 'lsp-clients)
-;;   (add-hook 'python-mode-hook #'lsp))
+(use-package python-mode
+  :config
+  (require 'lsp-clients)
+  (add-hook 'python-mode-hook #'lsp))
 
 ;;;; for use lsp, run the following lines
 ;; pip install python-language-server
