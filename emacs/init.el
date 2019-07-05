@@ -84,7 +84,10 @@
 (setq blink-cursor-delay 10.0)
 (blink-cursor-mode 1)
 (set-cursor-color "#FFFF00")
-(global-display-line-numbers-mode)
+
+;; 表示がずれるので、デフォルトではオフにする
+;;(global-display-line-numbers-mode)
+
 ;;shows the line number and total at mode-line
 (setcar mode-line-position
         '(:eval (format "%d" (count-lines (point-max) (point-min)))))
