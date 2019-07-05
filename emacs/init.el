@@ -228,6 +228,7 @@
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (setq org-src-fontify-natively t)
 (setq org-hide-leading-stars t)
+(setq org-hide-emphasis-markers t)
 ;;ToDo set-up
 (setq org-use-fast-todo-selection t)
 (setq org-todo-keywords
@@ -235,6 +236,10 @@
 	(sequence "REDO(r)" "|" "DONE(d)" "CANCEL(c)")))
 (setq org-log-done 'time)
 (setq org-tag-alist '(("LEARNING" . ?l) ("REFERENCE" . ?r) ("QUESTION" . ?q) ("UPTOHERE" . ?u)))
+
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 ;;--------------------------------------------------
 
 
