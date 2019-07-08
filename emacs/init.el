@@ -204,7 +204,7 @@
 
 ;;----auto-save-buffer-----------------------
 (use-package auto-save-buffers-enhanced)
-(setq auto-save-buffers-enhanced-interval 0.5)
+(setq auto-save-buffers-enhanced-interval 1.0)
 (auto-save-buffers-enhanced t)
 ;;--------------------------------------------------
 
