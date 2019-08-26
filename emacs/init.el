@@ -240,6 +240,13 @@
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(setq org-agenda-current-time-string "← now")
+(setq org-agenda-time-grid ;; Format is changed from 9.1
+      '((daily today require-timed)
+        (0900 01000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300 2400)
+        "-"
+"────────────────"))
 ;;--------------------------------------------------
 
 
