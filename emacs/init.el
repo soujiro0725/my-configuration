@@ -430,7 +430,16 @@
 (add-to-list 'exec-path "~/.pyenv/shims")
 
 (use-package lsp-mode
-  :commands lsp)
+  :commands lsp
+  :custom
+  ((lsp-enable-snippet t)
+   (lsp-enable-indentation nil)
+   (lsp-prefer-flymake nil)
+   (lsp-document-sync-method 'incremental)
+   (lsp-inhibit-message t)
+   (lsp-message-project-root-warning t)
+   (create-lockfiles nil))
+  )
 (use-package lsp-ui
   :commands lsp-ui-mode
   :config
