@@ -10,3 +10,5 @@ cd radare2
 # install socat
 sudo apt-get install socat
 
+# install capstone
+sudo apt-get install libcapstone3 libcapstone-dev
