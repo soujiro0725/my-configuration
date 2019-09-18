@@ -1,11 +1,26 @@
 FROM ubuntu:18.04
+
 ENV LC_CTYPE C.UTF-8
+
 RUN dpkg --add-architecture i386 && \
 apt-get update && \
-apt-get install -y strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 && \
+apt-get install -y cmake strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 && \
 (wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh) && \
 pip install capstone requests pwn r2pipe  && \
-pip3 install unicorn capstone ropper keystone-engine && \
+pip3 install unicorn capstone ropper && \
+
+# something wrong with keystone.
+# reference: https://github.com/avatartwo/avatar2/issues/23
+git clone https://github.com/keystone-engine/keystone.git && \
+cd keystone && \
+mkdir build && \
+cd build && \
+../make-share.sh && \
+make install && \
+ldconfig && \
+../bindings/python && \
+make install3 && \
+
 mkdir tools && cd tools && \
 git clone https://github.com/JonathanSalwan/ROPgadget && \
 git clone https://github.com/radare/radare2 && \
