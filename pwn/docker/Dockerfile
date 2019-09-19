@@ -8,9 +8,6 @@ apt-get install -y cmake strace ltrace curl wget gcc net-tools vim gdb python py
 (wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh) && \
 pip install capstone requests pwn r2pipe  && \
 pip3 install unicorn capstone ropper && \
-
-# something wrong with keystone.
-# reference: https://github.com/avatartwo/avatar2/issues/23
 git clone https://github.com/keystone-engine/keystone.git && \
 cd keystone && \
 mkdir build && \
@@ -18,9 +15,9 @@ cd build && \
 ../make-share.sh && \
 make install && \
 ldconfig && \
-../bindings/python && \
+sudo ../bindings/python && \
 make install3 && \
-
+cd && \
 mkdir tools && cd tools && \
 git clone https://github.com/JonathanSalwan/ROPgadget && \
 git clone https://github.com/radare/radare2 && \
