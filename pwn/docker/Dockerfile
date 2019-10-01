@@ -6,7 +6,7 @@ RUN dpkg --add-architecture i386
 
 RUN echo "apt updating and installing..."
 RUN apt-get update && \
-        apt-get install -y cmake strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386
+        apt-get install -y cmake strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 rxvt-unicode-256color
 
 RUN echo "installing gef..."
 RUN (wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh)
