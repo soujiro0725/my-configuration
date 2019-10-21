@@ -39,4 +39,5 @@ RUN cd && \
 RUN echo "installing ruby and one-gadget"
 RUN apt-get -y install ruby-full
 RUN gem install one_gadget
+RUN apt-get install -y tmux
 
