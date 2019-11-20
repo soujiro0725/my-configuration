@@ -119,16 +119,6 @@
 (use-package popwin)
 (popwin-mode 1)
 
-;; 2019-06-23
-;; 以下の設定は、find-filesを実行したときに、違うwindowにファイルを開いたり、意味不明な挙動を起こす。
-;; helmのバッファをつねにポップアップする設定自体は良いが、上記の問題を解決しないとストレスがたまる。
-;; helm bufferをpopupする
-;; (setq helm-display-function #'display-buffer)
-;; (when (require 'popwin)
-;;   (setq display-buffer-function 'popwin:display-buffer)
-;;   (setq popwin:special-display-config
-;;     '(("*complitation*" :noselect t)
-;;       ("helm" :regexp t :height 0.4))))
 
 (use-package helm)
 (helm-mode 1)
@@ -174,31 +164,6 @@
         helm-source-files-in-current-dir
         helm-source-bookmark-set
         helm-source-locate))
-;;--------------------------------------------------
-
-
-;;----company---------------------------------
-(use-package company
-  :config
-  (global-company-mode)
-  (push 'company-lsp company-backends)
-  )
-(setq company-transformers '(company-sort-by-backend-importance))
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
-(setq company-selection-wrap-around t)
-(setq completion-ignore-case t)
-(setq company-dabbrev-downcase nil)
-(global-set-key (kbd "C-M-i") 'company-complete)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-search-map (kbd "C-n") 'company-select-next)
-(define-key company-search-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-(define-key company-active-map (kbd "C-i") 'company-complete-selection)
-(define-key company-active-map [tab] 'company-complete-selection)
-(define-key company-active-map (kbd "C-f") 'company-complete-selection)
-(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 ;;--------------------------------------------------
 
 
@@ -493,6 +458,31 @@
   :custom (ccls-executable "/usr/local/bin/ccls")
   :hook ((c-mode c++-mode) .
          (lambda () (require 'ccls) (lsp))))
+;;--------------------------------------------------
+
+
+;;----company---------------------------------
+(use-package company
+  :config
+  (global-company-mode)
+  (push 'company-lsp company-backends)
+  )
+(setq company-transformers '(company-sort-by-backend-importance))
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+(setq company-selection-wrap-around t)
+(setq completion-ignore-case t)
+(setq company-dabbrev-downcase nil)
+(global-set-key (kbd "C-M-i") 'company-complete)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-search-map (kbd "C-n") 'company-select-next)
+(define-key company-search-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+(define-key company-active-map (kbd "C-i") 'company-complete-selection)
+(define-key company-active-map [tab] 'company-complete-selection)
+(define-key company-active-map (kbd "C-f") 'company-complete-selection)
+(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
 ;;--------------------------------------------------
 
 
