@@ -427,7 +427,6 @@
 
 
 ;;----lsp -----------------------------------------
-(add-to-list 'exec-path "~/.pyenv/shims")
 
 (use-package lsp-mode
   :commands lsp
@@ -483,6 +482,9 @@
   :config
   (require 'lsp-clients)
   (add-hook 'python-mode-hook #'lsp))
+
+(add-to-list 'exec-path "~/.pyenv/shims")
+(setq python-shell-interpreter "~/.pyenv/shims/python")
 
 ;; for use lsp, run the following lines
 ;; pip install python-language-server
