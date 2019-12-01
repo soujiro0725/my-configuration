@@ -479,10 +479,6 @@
    (setq sbt:program-options '("-Dsbt.supershell=false"))
    )
 
-(use-package scala-mode
-  :config
-  (add-hook 'scala-mode-hook #'lsp))
-
 ;;--------------------------------------------------
 
 
