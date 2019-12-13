@@ -1,4 +1,4 @@
-FROM codeclou/docker-alpine-glibc:2.26-r0
+FROM old_glibc:2.26
 
 ENV LC_CTYPE C.UTF-8
 
