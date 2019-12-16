@@ -1,2 +1,2 @@
 cd ~/Projects/ctf-memo/
-docker run --rm --privileged -v $PWD:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -p 5555:5555 -i olderglic:ctf
+docker run --rm --privileged -v $PWD:/pwd --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -p 5555:5555 -i old_glibc:2.26

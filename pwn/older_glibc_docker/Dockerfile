@@ -2,11 +2,13 @@ FROM old_glibc:2.26
 
 ENV LC_CTYPE C.UTF-8
 
+RUN apk add dpkg
+
 RUN dpkg --add-architecture i386
 
 RUN echo "apt updating and installing..."
-RUN apt-get update && \
-        apt-get install -y cmake strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 rxvt-unicode-256color
+RUN apk update && \
+        apk add cmake strace ltrace curl wget gcc net-tools vim gdb python python3 python3-pip wget git make procps libpcre3-dev libdb-dev libxt-dev libxaw7-dev python-pip libc6:i386 libncurses5:i386 libstdc++6:i386 rxvt-unicode-256color
 
 RUN echo "installing gef..."
 RUN (wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh)
@@ -37,7 +39,7 @@ RUN cd && \
         wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2?revision=bc2c96c0-14b5-4bb4-9f18-bceb4050fee7?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,7-2018-q2-update
 
 RUN echo "installing ruby and one-gadget"
-RUN apt-get -y install ruby-full
+RUN apk add ruby-full
 RUN gem install one_gadget
-RUN apt-get install -y tmux
+RUN apk add tmux
 
