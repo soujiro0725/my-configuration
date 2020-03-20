@@ -9,5 +9,5 @@ echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 echo 'installing pyenv-update...'
-git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+git clone https://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 
