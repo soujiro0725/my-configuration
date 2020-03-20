@@ -84,6 +84,9 @@
 (blink-cursor-mode 1)
 (set-cursor-color "#FFFF00")
 
+;; python-help bufferが自動的に立ち上がるのを防ぐ
+(global-eldoc-mode -1)
+
 ;; 表示がずれるので、デフォルトではオフにする
 ;;(global-display-line-numbers-mode)
 
@@ -276,7 +279,7 @@
     :diminish
     (dashboard-mode page-break-lines-mode)
     :custom
-    (dashboard-startup-banner 2)
+    (dashboard-startup-banner 3)
     (dashboard-items '((recents . 15)
                (projects . 5)
                (bookmarks . 5)
@@ -550,6 +553,16 @@
      ((((background dark)) (:background "#555555555555"))
       (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 ;;--------------------------------------------------
+
+;;for elips under development 
+(defun load-directory (dir)
+  (let ((load-it (lambda (f)
+                   (load-file (concat (file-name-as-directory dir) f)))
+                 ))
+    (mapc load-it (directory-files dir nil "\\.el$")))
+  (let ((dev-dir "~/.emacs.d/dev/eide"))
+    (when (file-exists-p dev-dir)
+      (load-directory "~/.emacs.d/dev/eide/src/"))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
