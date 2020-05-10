@@ -6,4 +6,4 @@ ipython
 jupyter
 gym
 trading-gym
-
+xlrd
