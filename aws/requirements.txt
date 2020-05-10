@@ -4,4 +4,6 @@ pandas
 numpy
 ipython
 jupyter
+gym
+trading-gym
 
