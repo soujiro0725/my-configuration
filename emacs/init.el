@@ -86,6 +86,10 @@
 
 ;; python-help bufferが自動的に立ち上がるのを防ぐ
 (global-eldoc-mode -1)
+;; 追加で設定
+(add-hook 'python-mode-hook
+          (lambda ()
+            (kill-local-variable 'eldoc-documentation-function)))
 
 ;; 表示がずれるので、デフォルトではオフにする
 ;;(global-display-line-numbers-mode)
