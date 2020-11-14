@@ -399,60 +399,20 @@
 
 
 ;;----lsp -----------------------------------------
-
 (use-package lsp-mode
-  :commands lsp
-  :custom
-  ((lsp-enable-snippet t)
-   (lsp-enable-indentation nil)
-   (lsp-prefer-flymake nil)
-   (lsp-document-sync-method 'incremental)
-   (lsp-inhibit-message t)
-   (lsp-message-project-root-warning t)
-   (create-lockfiles nil))
-  )
+  :commands lsp)
+(use-package company-lsp)
 (use-package lsp-ui
-  :commands lsp-ui-mode
   :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  :custom
-  (lsp-ui-imenu-enable nil)
-  (lsp-ui-imenu-kind-position 'top)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
-
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-include-signature t)
-  (lsp-ui-doc-position 'top) ;; top, bottom, or at-point
-  (lsp-ui-doc-max-width 150)
-  (lsp-ui-doc-max-height 30)
-  (lsp-ui-doc-use-childframe t)
-  (lsp-ui-doc-use-webkit t)
-
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-ignore-duplicate t)
-  (lsp-ui-sideline-show-symbol t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-sideline-show-diagnostics nil)
-  (lsp-ui-sideline-show-code-actions nil)
-
-  (lsp-ui-peek-enable t)
-  (lsp-ui-peek-peek-height 20)
-  (lsp-ui-peek-list-width 50)
-  (lsp-ui-peek-fontify 'on-demand) ;; never, on-demand, or always
-
-  :bind
-  (:map lsp-mode-map
-        ("M-?" . lsp-ui-peek-find-references)
-        ("M-/" . lsp-ui-peek-find-definitions)
-        ("C-c i"   . lsp-ui-peek-find-implementation)
-        ("C-c m"   . lsp-ui-imenu)
-        ("C-c s"   . lsp-ui-sideline-mode))
-  )
+(use-package company
+  :config
+  (global-company-mode)
+  (push 'company-lsp company-backends))
 
 (use-package python-mode
   :config
-  (require 'lsp-clients)
   (add-hook 'python-mode-hook #'lsp))
 
 (add-to-list 'exec-path "~/.pyenv/shims")
@@ -467,51 +427,6 @@
   :custom (ccls-executable "/usr/local/bin/ccls")
   :hook ((c-mode c++-mode) .
          (lambda () (require 'ccls) (lsp))))
-
-;; for Scala
-;; Enable scala-mode and sbt-mode
-(use-package scala-mode
-  :mode "\\.s\\(cala\\|bt\\)$")
-
-(use-package sbt-mode
-  :commands sbt-start sbt-command
-  :config
-  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
-  ;; allows using SPACE when in the minibuffer
-  (substitute-key-definition
-   'minibuffer-complete-word
-   'self-insert-command
-   minibuffer-local-completion-map)
-   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
-   (setq sbt:program-options '("-Dsbt.supershell=false"))
-   )
-
-;;--------------------------------------------------
-
-
-;;----company---------------------------------
-(use-package company
-  :config
-  (global-company-mode)
-  (push 'company-lsp company-backends)
-  )
-(setq company-transformers '(company-sort-by-backend-importance))
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
-(setq company-selection-wrap-around t)
-(setq completion-ignore-case t)
-(setq company-dabbrev-downcase nil)
-(global-set-key (kbd "C-M-i") 'company-complete)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-search-map (kbd "C-n") 'company-select-next)
-(define-key company-search-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-(define-key company-active-map (kbd "C-i") 'company-complete-selection)
-(define-key company-active-map [tab] 'company-complete-selection)
-(define-key company-active-map (kbd "C-f") 'company-complete-selection)
-(define-key emacs-lisp-mode-map (kbd "C-M-i") 'company-complete)
-;;--------------------------------------------------
 
 
 ;;---fly-check--------------------------------------
