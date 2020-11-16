@@ -295,6 +295,15 @@
 ;;--------------------------------------------------
 
 
+;;----perspective-------------------------------
+(use-package perspective
+  :config ;; Activate it.
+          (persp-mode)
+          ;; In the modeline, tell me which workspace I'm in.
+          (persp-turn-on-modestring))
+;;----------------------------------------------------
+
+
 ;;----indent----------------------------------------
 (use-package highlight-indent-guides
     :diminish
