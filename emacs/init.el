@@ -280,18 +280,18 @@
 
 ;;---dashboard--------------------------------------
 (use-package dashboard
-    :diminish
-    (dashboard-mode page-break-lines-mode)
-    :custom
-    (dashboard-startup-banner 3)
-    (dashboard-items '((recents . 15)
-               (projects . 5)
-               (bookmarks . 5)
-               (agenda . 5)))
-    :hook
-    (after-init . dashboard-setup-startup-hook)
-    :config
-    (add-to-list 'dashboard-items '(agenda) t))
+  :diminish
+  (dashboard-mode page-break-lines-mode)
+  :custom
+  (dashboard-startup-banner 3)
+  (dashboard-items '((recents . 15)
+                     (projects . 5)
+                     (bookmarks . 5)
+                     (agenda . 5)))
+  :hook
+  (after-init . dashboard-setup-startup-hook)
+  :config
+  (add-to-list 'dashboard-items '(agenda) t))
 ;;--------------------------------------------------
 
 
