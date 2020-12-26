@@ -428,6 +428,10 @@
   :hook ((c-mode c++-mode) .
          (lambda () (require 'ccls) (lsp))))
 
+;; for go
+(use-package go-mode
+    :config
+    (add-hook 'go-mode-hook #'lsp))
 
 ;;---fly-check--------------------------------------
 (use-package flycheck)
