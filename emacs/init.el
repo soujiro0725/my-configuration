@@ -486,6 +486,24 @@
       (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 ;;--------------------------------------------------
 
+
+;;---eshell---------------------------------------
+
+(defun eshell-on-current-dir (&optional arg)
+  "invoke eshell and cd to current directory"
+  (interactive "P")
+  (let ((dir default-directory))
+    (eshell arg)
+    (cd dir))
+  (eshell-emit-prompt)
+  (goto-char (point-max)))
+
+(add-to-list 'popwin:special-display-config
+             '("\\`\\*eshell" :regexp t :dedicated t :position bottom
+               :height 0.3))
+
+;;--------------------------------------------------
+
 ;;for elips under development 
 (defun load-directory (dir)
   (let ((load-it (lambda (f)
