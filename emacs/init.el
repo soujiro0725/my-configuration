@@ -256,7 +256,7 @@
   :custom-face
   (doom-modeline-bar ((t (:background "#6272a4"))))
   :config
-  (load-theme 'doom-dracula t)
+  (load-theme 'doom-city-lights t)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
@@ -280,18 +280,79 @@
 
 ;;---dashboard--------------------------------------
 (use-package dashboard
-  :diminish
-  (dashboard-mode page-break-lines-mode)
-  :custom
-  (dashboard-startup-banner 3)
-  (dashboard-items '((recents . 15)
-                     (projects . 5)
-                     (bookmarks . 5)
-                     (agenda . 5)))
-  :hook
-  (after-init . dashboard-setup-startup-hook)
+  :bind (("<f10>" . open-dashboard)
+     :map dashboard-mode-map
+     ("c" . browse-calendar)
+     ("w" . browse-tenki)
+     ("m" . browse-gmail)
+     ("t" . browse-tweetdeck)
+     ("s" . browse-slack)
+     ("h" . browse-homepage)
+     ("l" . line-app-open)
+     ("<f10>" . quit-dashboard))
+  :hook (after-init . dashboard-setup-startup-hook)
   :config
-  (add-to-list 'dashboard-items '(agenda) t))
+  ;; Set the title
+  (when (eq system-type 'darwin)
+    (setq dashboard-banner-logo-title
+      (concat "GNU Emacs " emacs-version " kernel "
+          (car (split-string (shell-command-to-string "uname -r")))  " x86_64 Mac OS X "
+          (car(split-string (shell-command-to-string "sw_vers -productVersion") "-")))))
+  (when (eq system-type 'gnu/linux)
+    (setq dashboard-banner-logo-title
+      (concat "GNU Emacs " emacs-version " kernel "
+          (car (split-string (shell-command-to-string "uname -r")))  " x86_64 Debian GNU/Linux "
+          (car (split-string (shell-command-to-string "cat /etc/debian_version") "_")))))
+  ;; Set the banner
+  (setq dashboard-startup-banner "~/Projects/my-configuration/emacs/emacs.png")
+
+  ;; Use icons
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+
+  ;; Set the footer
+  (setq dashboard-footer "Always be joyful. Never stop praying. Be thankful in all circumstances!")
+  (setq dashboard-footer-icon
+    (all-the-icons-octicon "dashboard" :height 1.1 :v-adjust -0.05 :face 'font-lock-keyword-face))
+  (when (eq system-type 'darwin)
+    (setq dashboard-items '((recents  . 10))))
+  (when (eq system-type 'gnu/linux)
+    (setq dashboard-items '((recents  . 8))))
+
+  ;; Insert custom item
+  (defun dashboard-insert-custom (list-size)
+    (insert (if (display-graphic-p)
+        (all-the-icons-faicon "google" :height 1.2 :v-adjust -0.05 :face 'error) " "))
+    (insert "   Calendar: (c)    Weather: (w)    Mail: (m)    Twitter: (t)    LINE: (l)    Slack: (s)    GH: (h)"))
+  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+  (add-to-list 'dashboard-items '(custom) t)
+
+  (defun open-dashboard ()
+    "Open the *dashboard* buffer and jump to the first widget."
+    (interactive)
+    (delete-other-windows)
+    ;; Refresh dashboard buffer
+    (if (get-buffer dashboard-buffer-name)
+    (kill-buffer dashboard-buffer-name))
+    (dashboard-insert-startupify-lists)
+    (switch-to-buffer dashboard-buffer-name)
+    ;; Jump to the first section
+    (goto-char (point-min))
+    (dashboard-goto-recent-files))
+
+  (defun quit-dashboard ()
+    "Quit dashboard window."
+    (interactive)
+    (quit-window t)
+    (when (and dashboard-recover-layout-p
+           (bound-and-true-p winner-mode))
+      (winner-undo)
+      (setq dashboard-recover-layout-p nil)))
+
+  (defun dashboard-goto-recent-files ()
+    "Go to recent files."
+    (interactive)
+    (funcall (local-key-binding "r"))))
 ;;--------------------------------------------------
 
 
