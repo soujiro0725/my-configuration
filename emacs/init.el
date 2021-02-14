@@ -256,7 +256,7 @@
   :custom-face
   (doom-modeline-bar ((t (:background "#6272a4"))))
   :config
-  (load-theme 'doom-city-lights t)
+  (load-theme 'doom-old-hope t)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
@@ -356,15 +356,6 @@
 ;;--------------------------------------------------
 
 
-;;----perspective-------------------------------
-(use-package perspective
-  :config ;; Activate it.
-          (persp-mode)
-          ;; In the modeline, tell me which workspace I'm in.
-          (persp-turn-on-modestring))
-;;----------------------------------------------------
-
-
 ;;----indent----------------------------------------
 (use-package highlight-indent-guides
     :diminish
@@ -394,11 +385,6 @@
 (use-package visual-regexp)
 (define-key global-map (kbd "C-c r") 'vr/replace)
 (define-key global-map (kbd "C-c q") 'vr/query-replace)
-;;--------------------------------------------------
-
-
-;;---transpose-frame--------------------------------
-(use-package transpose-frame)
 ;;--------------------------------------------------
 
 
@@ -520,6 +506,16 @@
    (load-file local-settings)))
 ;;--------------------------------------------------
 
+
+;;---persp-mode----------------------------------
+
+(use-package persp-mode
+  :ensure t
+  :commands persp-mode
+  :config
+  (set-face-attribute 'persp-selected-face nil :foreground "#81a2be"))
+
+;;--------------------------------------------------
 
 ;;---minimap----------------------------------------
 (use-package minimap
