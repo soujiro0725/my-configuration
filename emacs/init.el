@@ -544,21 +544,11 @@
 ;;--------------------------------------------------
 
 
-;;---eshell---------------------------------------
+;;---shell-pop---------------------------------------
 
-(defun eshell-on-current-dir (&optional arg)
-  "invoke eshell and cd to current directory"
-  (interactive "P")
-  (let ((dir default-directory))
-    (eshell arg)
-    (cd dir))
-  (eshell-emit-prompt)
-  (goto-char (point-max)))
-
-(add-to-list 'popwin:special-display-config
-             '("\\`\\*eshell" :regexp t :dedicated t :position bottom
-               :height 0.3))
-
+(use-package shell-pop)
+(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+(global-set-key (kbd "C-c s") 'shell-pop)
 ;;--------------------------------------------------
 
 ;;for elips under development 
