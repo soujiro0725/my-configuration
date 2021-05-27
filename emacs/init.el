@@ -518,48 +518,56 @@
 ;;--------------------------------------------------
 
 ;;---minimap----------------------------------------
-(use-package minimap
-  :commands
-  (minimap-create minimap-kill)
-  :custom
-  (minimap-major-modes '(prog-mode))
+;; (use-package minimap
+;;   :commands
+;;   (minimap-create minimap-kill)
+;;   :custom
+;;   (minimap-major-modes '(prog-mode))
 
-  (minimap-window-location 'right)
-  (minimap-update-delay 0.2)
-  (minimap-minimum-width 20)
-  ;; :bind
-  ;; ("C-c m" . soujiro0725/toggle-minimap)
-  ;; :preface
-  ;; (defun soujiro0725/toggle-minimap ()
-  ;;   "Toggle minimap for current buffer."
-  ;;   (interactive)
-  ;;   (if (null (get-buffer minimap-buffer-name))
-  ;;       (minimap-create)
-  ;;     (minimap-kill)))
-  :config
-  (custom-set-faces
-   '(minimap-active-region-background
-     ((((background dark)) (:background "#555555555555"))
-      (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
+;;   (minimap-window-location 'right)
+;;   (minimap-update-delay 0.2)
+;;   (minimap-minimum-width 20)
+;;   ;; :bind
+;;   ;; ("C-c m" . soujiro0725/toggle-minimap)
+;;   ;; :preface
+;;   ;; (defun soujiro0725/toggle-minimap ()
+;;   ;;   "Toggle minimap for current buffer."
+;;   ;;   (interactive)
+;;   ;;   (if (null (get-buffer minimap-buffer-name))
+;;   ;;       (minimap-create)
+;;   ;;     (minimap-kill)))
+;;   :config
+;;   (custom-set-faces
+;;    '(minimap-active-region-background
+;;      ((((background dark)) (:background "#555555555555"))
+;;       (t (:background "#C847D8FEFFFF"))) :group 'minimap)))
 ;;--------------------------------------------------
 
 
 ;;---shell-pop---------------------------------------
 
-(use-package shell-pop)
-(setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
-(global-set-key (kbd "C-c s") 'shell-pop)
+;; (use-package shell-pop)
+;; (setq shell-pop-shell-type '("ansi-term" "*ansi-term*" (lambda () (ansi-term shell-pop-term-shell))))
+;; (global-set-key (kbd "C-c s") 'shell-pop)
+;;--------------------------------------------------
+
+
+;;---plantuml--------------------------------------------------
+;; (use-package plantuml-mode)
+;; (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+;; (setq plantuml-jar-path "~/Projects/my-configuration/emacs/plantuml.jar")
+;; (setq plantuml-default-exec-mode 'jar)
 ;;--------------------------------------------------
 
 ;;for elips under development 
-(defun load-directory (dir)
-  (let ((load-it (lambda (f)
-                   (load-file (concat (file-name-as-directory dir) f)))
-                 ))
-    (mapc load-it (directory-files dir nil "\\.el$")))
-  (let ((dev-dir "~/.emacs.d/dev/eide"))
-    (when (file-exists-p dev-dir)
-      (load-directory "~/.emacs.d/dev/eide/src/"))))
+;; (defun load-directory (dir)
+;;   (let ((load-it (lambda (f)
+;;                    (load-file (concat (file-name-as-directory dir) f)))
+;;                  ))
+;;     (mapc load-it (directory-files dir nil "\\.el$")))
+;;   (let ((dev-dir "~/.emacs.d/dev/eide"))
+;;     (when (file-exists-p dev-dir)
+;;       (load-directory "~/.emacs.d/dev/eide/src/"))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
