@@ -3,6 +3,10 @@
 ;;------------straight.el --------------------------
 ;;--------------------------------------------------
 ;;; code:
+
+;; for iTerm2
+;; 
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -57,7 +61,7 @@
 (setq-default truncate-lines t)
 ;; optionキーとcommandキーを，両方meta キーにする
 (setq ns-command-modifier (quote meta))
-(scroll-bar-mode -1)
+;;(scroll-bar-mode -1)
 (global-auto-revert-mode 1)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -312,8 +316,8 @@
 
   ;; Set the footer
   (setq dashboard-footer "Always be joyful. Never stop praying. Be thankful in all circumstances!")
-  (setq dashboard-footer-icon
-    (all-the-icons-octicon "dashboard" :height 1.1 :v-adjust -0.05 :face 'font-lock-keyword-face))
+  ;; (setq dashboard-footer-icon
+  ;;   (all-the-icons-octicon "dashboard" :height 1.1 :v-adjust -0.05 :face 'font-lock-keyword-face))
   (when (eq system-type 'darwin)
     (setq dashboard-items '((recents  . 10))))
   (when (eq system-type 'gnu/linux)
@@ -357,14 +361,14 @@
 
 
 ;;----indent----------------------------------------
-(use-package highlight-indent-guides
-    :diminish
-    :hook
-    ((prog-mode yaml-mode) . highlight-indent-guides-mode)
-    :custom
-    (highlight-indent-guides-auto-enabled t)
-    (highlight-indent-guides-responsive t)
-    (highlight-indent-guides-method 'character)) ; column
+;; (use-package highlight-indent-guides
+;;     :diminish
+;;     :hook
+;;     ((prog-mode yaml-mode) . highlight-indent-guides-mode)
+;;     :custom
+;;     (highlight-indent-guides-auto-enabled t)
+;;     (highlight-indent-guides-responsive t)
+;;     (highlight-indent-guides-method 'character)) ; column
 ;;--------------------------------------------------
 
 
