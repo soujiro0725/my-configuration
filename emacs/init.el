@@ -106,7 +106,7 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
+  (load-theme 'doom-feather-dark t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -152,6 +152,33 @@
 ;;--------------------------------------------
 
 (use-package vterm
-    :ensure t)
+  :ensure t)
+
+(use-package vterm-toggle
+  :ensure t
+  :config
+  (global-set-key [(C-tab)] 'vterm-toggle)
+
+  ;; you can cd to the directory where your previous buffer file exists
+  ;; after you have toggle to the vterm buffer with `vterm-toggle'.
+  (define-key vterm-mode-map [(control return)]   #'vterm-toggle-insert-cd)
+
+                                        ;Switch to next vterm buffer
+  (define-key vterm-mode-map (kbd "s-n")   'vterm-toggle-forward)
+                                        ;Switch to previous vterm buffer
+  (define-key vterm-mode-map (kbd "s-p")   'vterm-toggle-backward))
 
 ;;--------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("2f8eadc12bf60b581674a41ddc319a40ed373dd4a7c577933acaff15d2bf7cc6" "49acd691c89118c0768c4fb9a333af33e3d2dca48e6f79787478757071d64e68" default)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
