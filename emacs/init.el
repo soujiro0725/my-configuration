@@ -126,6 +126,10 @@
   :ensure t)
 ;;-------------------------------------------
 
+;;----smartparens----------------------------
+(use-package smartparens)
+(smartparens-global-mode t)
+;;--------------------------------------------------
 
 ;;---switch-window----------------------------------
 (use-package switch-window)
@@ -176,13 +180,21 @@
   (define-key vterm-mode-map (kbd "s-p")   'vterm-toggle-backward))
 
 ;;--------------------------------------------
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/emacs-application-framework/")
+(require 'eaf)
+(require 'eaf-browser)
+(require 'eaf-terminal)
+
+;;--------------------------------------------------
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("2e05569868dc11a52b08926b4c1a27da77580daa9321773d92822f7a639956ce" "2dd4951e967990396142ec54d376cced3f135810b2b69920e77103e0bcedfba9" "2f8eadc12bf60b581674a41ddc319a40ed373dd4a7c577933acaff15d2bf7cc6" "49acd691c89118c0768c4fb9a333af33e3d2dca48e6f79787478757071d64e68" default)))
+   '("683b3fe1689da78a4e64d3ddfce90f2c19eb2d8ab1bab1738a63d8263119c3f4" "2721b06afaf1769ef63f942bf3e977f208f517b187f2526f0e57c1bd4a000350" "ff24d14f5f7d355f47d53fd016565ed128bf3af30eb7ce8cae307ee4fe7f3fd0" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "f458b92de1f6cf0bdda6bce23433877e94816c3364b821eb4ea9852112f5d7dc" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "2e05569868dc11a52b08926b4c1a27da77580daa9321773d92822f7a639956ce" "2dd4951e967990396142ec54d376cced3f135810b2b69920e77103e0bcedfba9" "2f8eadc12bf60b581674a41ddc319a40ed373dd4a7c577933acaff15d2bf7cc6" "49acd691c89118c0768c4fb9a333af33e3d2dca48e6f79787478757071d64e68" default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
